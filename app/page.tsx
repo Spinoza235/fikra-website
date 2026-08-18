@@ -1,65 +1,138 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Globe, Code2, TrendingUp, Brain } from "lucide-react";
+import ServiceCard from "@/src/components/ServiceCard";
+import GridBackground from "@/src/components/GridBackground";
+
+const services = [
+  {
+    icon: Globe,
+    title: "Création de sites web",
+    description: "Des sites vitrines et e-commerce rapides, modernes et responsives, conçus pour convertir vos visiteurs en clients.",
+  },
+  {
+    icon: Code2,
+    title: "Développement sur mesure",
+    description: "Des applications et outils métiers construits précisément autour de vos besoins, de la conception au déploiement.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Digitalisation d'entreprise",
+    description: "Nous structurons et digitalisons vos processus internes pour gagner en efficacité et en rigueur au quotidien.",
+  },
+  {
+    icon: Brain,
+    title: "Intelligence Artificielle",
+    description: "Des solutions d'IA appliquées à vos besoins réels : automatisation intelligente, analyse de données, assistants conversationnels.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="bg-dark">
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-6 py-24 md:py-36">
+        <GridBackground />
+        <div className="relative max-w-4xl mx-auto text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-block text-primary text-sm font-semibold tracking-widest uppercase mb-4"
+          >
+            Fikra Tech · Tchad
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6"
+          >
+            L&apos;expertise technique au service de{" "}
+            <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+              votre croissance.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-muted text-lg max-w-2xl mx-auto mb-10"
+          >
+            Fikra Tech conçoit des sites web, des applications sur mesure et des solutions
+            d&apos;intelligence artificielle pour accompagner la transformation numérique des
+            entreprises au Tchad.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link
+              href="/contact"
+              className="bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Discuter de mon projet
+            </Link>
+            <Link
+              href="/services"
+              className="border border-white/20 hover:border-primary text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
             >
-              Learning
-            </a>{" "}
-            center.
+              Découvrir nos services
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SERVICES PREVIEW */}
+      <section className="px-6 py-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Notre expertise</h2>
+            <p className="text-muted max-w-xl mx-auto">
+              Une gamme de services conçue pour accompagner chaque étape de votre transformation
+              numérique.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((service, i) => (
+              <ServiceCard key={service.title} index={i} {...service} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA FINAL */}
+      <section className="px-6 pb-24">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="max-w-5xl mx-auto bg-gradient-to-r from-primary to-primary-light rounded-3xl px-8 py-14 text-center"
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Un projet en tête ? Échangeons.
+          </h2>
+          <p className="text-white/90 max-w-xl mx-auto mb-8">
+            Décrivez-nous votre besoin, nous revenons vers vous avec une proposition claire et
+            adaptée à votre budget.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/contact"
+            className="inline-block bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-light transition-colors duration-300"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            Contactez-nous
+          </Link>
+        </motion.div>
+      </section>
     </div>
   );
 }

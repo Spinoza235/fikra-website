@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -16,7 +17,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-dark text-white sticky top-0 z-50 border-b border-white/10">
+    <header className="relative bg-dark text-white sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold">
           Fikra<span className="text-primary">Tech</span>
@@ -35,11 +36,13 @@ export default function Header() {
           ))}
         </nav>
 
+        {/* Bouton chic desktop */}
         <Link
           href="/contact"
-          className="hidden md:block bg-primary hover:bg-primary-light text-white px-5 py-2 rounded-lg transition-colors duration-300"
+          className="hidden md:flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-5 py-2 text-sm font-medium text-white hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group"
         >
-          Demander un devis
+          Discuter d&apos;un projet
+          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
 
         {/* Icône burger animée */}
@@ -66,35 +69,61 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Menu mobile animé */}
       <AnimatePresence>
         {isOpen && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden"
-          >
-            <div className="flex flex-col gap-1 px-6 pb-6">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.25 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block py-2 text-muted hover:text-primary transition-colors"
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 top-[64px] bg-black/40 backdrop-blur-sm z-40"
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Carte flottante effet verre liquide */}
+            <motion.nav
+              initial={{ opacity: 0, scale: 0.95, y: -12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -12 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="md:hidden absolute top-[calc(100%+8px)] inset-x-4 z-50 bg-dark/70 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%)",
+              }}
+            >
+              <div className="flex flex-col p-2">
+                {navLinks.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.2 }}
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.nav>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 rounded-xl text-muted hover:text-white hover:bg-white/5 transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+
+                <div className="h-px bg-white/10 my-2 mx-4" />
+
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="mx-2 mt-1 mb-2 flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 text-white text-center px-4 py-3 font-medium hover:bg-white/10 transition-colors duration-300"
+                >
+                  Discuter d&apos;un projet
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
     </header>
