@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -19,9 +20,12 @@ export default function Header() {
   return (
     <header className="relative bg-dark text-white sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          Fikra<span className="text-primary">Tech</span>
-        </Link>
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/fikra-logo.png" alt="Fikra Tech" width={32} height={32} className="h-8 w-auto" priority />
+           <span className="text-xl font-bold">
+            Fikra<span className="text-primary">Tech</span>
+            </span>
+          </Link>
 
         {/* Menu desktop */}
         <nav className="hidden md:flex gap-8">

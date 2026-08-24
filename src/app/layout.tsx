@@ -17,8 +17,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fikra Tech | Création de sites web, développement & digitalisation au Tchad",
-  description: "Fikra Tech accompagne les entreprises tchadiennes dans leur transformation numérique : création de sites web, développement sur mesure, digitalisation et automatisation.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fikra-tech.vercel.app"),
+  title: {
+    default: "Fikra Tech | Création de sites web, développement & digitalisation au Tchad",
+    template: "%s | Fikra Tech",
+  },
+  description:
+    "Fikra Tech accompagne les entreprises tchadiennes dans leur transformation numérique : création de sites web, développement sur mesure, digitalisation et automatisation.",
+  icons: {
+    icon: "/fikra-favicon-32.png",
+    apple: "/fikra-apple-touch-180.png",
+  },
+  openGraph: {
+    siteName: "Fikra Tech",
+    locale: "fr_FR",
+    type: "website",
+    images: [
+      {
+        url: "/fikra-logo.png",
+        width: 512,
+        height: 512,
+        alt: "Fikra Tech",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
