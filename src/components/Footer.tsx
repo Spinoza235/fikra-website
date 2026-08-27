@@ -130,7 +130,7 @@ export default function Footer() {
           <ul className="space-y-2 text-muted text-sm">
             <li>N&apos;Djamena, Tchad</li>
             <li>contact@fikratech.com</li>
-            <li>WhatsApp : +235 XX XX XX XX</li>
+            <li>WhatsApp : +235 66 92 58 38</li>
           </ul>
         </div>
 

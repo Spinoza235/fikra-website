@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { GraduationCap, Target, Users } from "lucide-react";
 
 const values = [
@@ -88,14 +89,23 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
+              className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-light mx-auto mb-4" />
-              <h3 className="text-white font-semibold mb-1">Cofondateur 1</h3>
-              <p className="text-primary text-sm mb-2">Direction technique</p>
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-5 rounded-full overflow-hidden ring-2 ring-primary/40">
+                <Image
+                  src="/images/team/cofounder-1.jpeg"
+                  alt="Photo du cofondateur, expert en Intelligence Artificielle"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <p className="text-primary text-sm font-medium mb-3">
+                Expert en Intelligence Artificielle
+              </p>
               <p className="text-muted text-sm leading-relaxed">
-                Master en Intelligence Artificielle. Spécialisé en développement, architecture
-                logicielle et solutions IA.
+                Passionné par l&apos;IA appliquée, il conçoit des solutions intelligentes qui
+                résolvent de vrais problèmes métier — de l&apos;architecture logicielle aux
+                assistants intégrés dans nos applications.
               </p>
             </motion.div>
 
@@ -104,14 +114,23 @@ export default function AProposContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
+              className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-light mx-auto mb-4" />
-              <h3 className="text-white font-semibold mb-1">Cofondateur 2</h3>
-              <p className="text-primary text-sm mb-2">Développement & relation client</p>
+              <div className="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-5 rounded-full overflow-hidden ring-2 ring-primary/40">
+                <Image
+                  src="/images/team/cofounder-2.jpeg"
+                  alt="Photo du cofondateur, expert en développement d'applications"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <p className="text-primary text-sm font-medium mb-3">
+                Expert en développement d&apos;applications
+              </p>
               <p className="text-muted text-sm leading-relaxed">
-                Licence en Informations Générales. En charge du développement, de la
-                communication et du suivi client.
+                Du cahier des charges à la mise en ligne, il transforme chaque besoin client en
+                application robuste et bien pensée, tout en assurant un suivi de proximité à
+                chaque étape du projet.
               </p>
             </motion.div>
           </div>

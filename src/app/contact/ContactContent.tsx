@@ -51,12 +51,12 @@ export default function ContactContent() {
               <div>
                 <p className="text-white font-medium mb-1">WhatsApp</p>
 
-                <a href="https://wa.me/235XXXXXXXX"
+                <a href="https://wa.me/235 66 92 58 38"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted text-sm hover:text-primary transition-colors"
                 >
-                  +235 XX XX XX XX
+                  +235 66 92 58 38
                 </a>
               </div>
             </div>
