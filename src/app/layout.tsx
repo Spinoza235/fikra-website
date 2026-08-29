@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 import Chatbot from "@/src/components/Chatbot";
+import { defaultOpenGraph } from "@/src/lib/seo";
 
 
 const geistSans = Geist({
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fikra-tech.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fikra-website.vercel.app"),
   title: {
     default: "Fikra Tech | Création de sites web, développement & digitalisation au Tchad",
     template: "%s | Fikra Tech",
@@ -28,19 +29,7 @@ export const metadata: Metadata = {
     icon: "/fikra-favicon-32.png",
     apple: "/fikra-apple-touch-180.png",
   },
-  openGraph: {
-    siteName: "Fikra Tech",
-    locale: "fr_FR",
-    type: "website",
-    images: [
-      {
-        url: "/fikra-logo.png",
-        width: 512,
-        height: 512,
-        alt: "Fikra Tech",
-      },
-    ],
-  },
+  openGraph: defaultOpenGraph,
 };
 
 export default function RootLayout({
