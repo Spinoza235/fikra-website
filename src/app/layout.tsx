@@ -44,7 +44,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-dark">
         <Header />
-        <main className="flex-1 pt-28 bg-dark">{children}</main>
+        <main className="flex-1 pt-20 bg-dark">{children}</main>
         <Footer />
         <Chatbot />
       </body>
