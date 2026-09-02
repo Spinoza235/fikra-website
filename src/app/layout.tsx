@@ -42,9 +42,9 @@ export default function RootLayout({
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-dark">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-28 bg-dark">{children}</main>
         <Footer />
         <Chatbot />
       </body>
