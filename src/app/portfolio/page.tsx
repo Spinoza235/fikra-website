@@ -3,13 +3,14 @@ import PortfolioContent from "./PortfolioContent";
 import { defaultOpenGraph } from "@/src/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Réalisations — Nos projets",
+  title: "Réalisations, logiciels avec IA, sites web et applications",
   description:
-    "Découvrez les projets réalisés par Fikra Tech : sites web, applications sur mesure et solutions d'intelligence artificielle pour des entreprises au Tchad.",
+    "Projets réalisés par Fikra Tech au Tchad : HopeStock, logiciel de gestion hors ligne avec assistant IA, sites e-commerce et sites institutionnels.",
+  alternates: { canonical: "/portfolio" },
   openGraph: {
     ...defaultOpenGraph,
-    title: "Nos réalisations — Fikra Tech",
-    description: "Sites web, applications et projets IA réalisés pour nos clients.",
+    title: "Nos réalisations, Fikra Tech",
+    description: "Logiciels avec IA, sites e-commerce et sites institutionnels livrés à nos clients.",
   },
 };
 

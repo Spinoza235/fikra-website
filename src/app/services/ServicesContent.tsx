@@ -1,135 +1,97 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Globe, Code2, TrendingUp, Brain } from "lucide-react";
-
-const services = [
-  {
-    icon: Globe,
-    title: "Création de sites web",
-    description: "Un site vitrine ou e-commerce rapide, moderne et pensé pour convertir vos visiteurs en clients.",
-    features: [
-      "Design sur mesure, responsive mobile",
-      "Optimisation SEO de base incluse",
-      "Formulaire de contact et intégration WhatsApp",
-      "Hébergement et mise en ligne accompagnés",
-    ],
-  },
-  {
-    icon: Code2,
-    title: "Développement sur mesure",
-    description: "Des applications web et outils métiers construits précisément autour de vos besoins réels.",
-    features: [
-      "Applications web internes ou grand public",
-      "Intégration à vos outils existants",
-      "Code propre, documenté et évolutif",
-      "Accompagnement après livraison",
-    ],
-  },
-  {
-    icon: TrendingUp,
-    title: "Digitalisation d'entreprise",
-    description: "Nous transformons vos processus papier ou manuels en outils numériques simples à utiliser.",
-    features: [
-      "Audit de vos processus actuels",
-      "Digitalisation de la gestion et du suivi client",
-      "Formation de vos équipes aux nouveaux outils",
-      "Solutions adaptées même en connexion limitée",
-    ],
-  },
-  {
-    icon: Brain,
-    title: "Intelligence Artificielle",
-    description: "Nous concevons des solutions d'IA appliquées à des problématiques concrètes d'entreprise, portées par une expertise académique de niveau Master en Intelligence Artificielle.",
-    features: [
-      "Assistants conversationnels (chatbots) sur mesure",
-      "Automatisation intelligente de tâches et de processus métier",
-      "Analyse et valorisation de vos données d'entreprise",
-      "Intégration de modèles d'IA dans vos outils existants",
-    ],
-  },
-];
+import { Check } from "lucide-react";
+import { getPillars } from "@/src/lib/services";
+import { PageHero, CtaBand } from "@/src/components/Blocks";
+import Reveal from "@/src/components/Reveal";
+import { useLang } from "@/src/lib/i18n";
 
 export default function ServicesContent() {
+  const { t } = useLang();
+  const sp = t.servicesPage;
+  const pillars = getPillars(t);
+
   return (
-    <div className="bg-dark">
-      {/* HEADER DE PAGE */}
-      <section className="px-6 py-20 text-center border-b border-white/10">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
-        >
-          Nos <span className="text-primary">services</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-muted max-w-xl mx-auto"
-        >
-          Quatre domaines d&apos;expertise pour accompagner votre transformation numérique, du site
-          vitrine à l&apos;intelligence artificielle appliquée.
-        </motion.p>
-      </section>
+    <>
+      <PageHero
+        title={sp.title}
+        intro={sp.intro}
+      />
 
-      {/* LISTE DETAILLEE */}
-      <section className="px-6 py-20">
-        <div className="max-w-5xl mx-auto flex flex-col gap-16">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className={`flex flex-col md:flex-row gap-8 items-start ${
-                i % 2 === 1 ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              <div className="flex-1">
-                <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light mb-4">
-                  <service.icon className="w-7 h-7 text-white" strokeWidth={2} />
-                </div>
-                <h2 className="text-2xl font-bold text-white mb-3">{service.title}</h2>
-                <p className="text-muted leading-relaxed">{service.description}</p>
-              </div>
-
-              <div className="flex-1 bg-white/5 border border-white/10 rounded-2xl p-6 w-full">
-                <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-4">
-                  Ce que ça inclut
-                </p>
-                <ul className="space-y-3">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex gap-3 text-white text-sm">
-                      <span className="text-primary">✓</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
+      {/* Menu des domaines : reste à sa place, sous le titre de la page */}
+      <nav aria-label={sp.navLabel} className="relative z-10 -mt-6 px-4 sm:px-6">
+        <ul
+          className="scrollbar-hide mx-auto flex w-fit max-w-full gap-1 overflow-x-auto rounded-full border border-white/10 bg-[#161626] p-1.5 shadow-2xl shadow-black/40"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {pillars.map((p) => (
+            <li key={p.id} className="flex-shrink-0">
+              <a
+                href={`#${p.id}`}
+                className="flex items-center gap-2 rounded-full px-4 py-2 text-sm text-muted transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <p.icon className="h-4 w-4 text-primary-light" aria-hidden="true" />
+                {p.title}
+              </a>
+            </li>
           ))}
+        </ul>
+      </nav>
+
+      {pillars.map((p, i) => (
+        <section key={p.id} id={p.id} className="relative px-4 py-16 sm:px-6 md:py-24">
+          {i % 2 === 0 && (
+            <div aria-hidden="true" className="pointer-events-none absolute top-1/4 left-0 h-72 w-72 rounded-full bg-primary/10 blur-[100px]" />
+          )}
+          <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+            <Reveal>
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-light shadow-lg shadow-primary/30">
+                <p.icon className="h-7 w-7 text-white" strokeWidth={1.8} aria-hidden="true" />
+              </span>
+              <h2 className="mt-6 text-3xl font-bold md:text-4xl">{p.title}</h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted">{p.summary}</p>
+              <p className="mt-6 inline-block rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-muted">
+                <span className="font-semibold text-white">{t.common.forWho}</span>
+                {p.forWho}
+              </p>
+            </Reveal>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {p.items.map((item, j) => (
+                <Reveal key={item.title} delay={j * 0.08}>
+                  <div className="group h-full rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/[0.06]">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary-light transition-colors group-hover:bg-primary group-hover:text-white">
+                      <Check className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.text}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ))}
+
+      <section className="border-t border-white/10 px-4 py-16 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-3xl font-semibold md:text-4xl">{sp.faqTitle}</h2>
+          <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
+            {sp.faq.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium text-white">
+                  {f.q}
+                  <span className="text-2xl leading-none text-primary-light transition-transform group-open:rotate-45" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 leading-relaxed text-muted">{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-6 pb-24 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          Un besoin spécifique à évaluer ?
-        </h2>
-        <p className="text-muted max-w-xl mx-auto mb-8">
-          Décrivez-nous votre projet, nous vous proposons une solution adaptée.
-        </p>
-        <Link
-          href="/contact"
-          className="inline-block bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
-        >
-          Discuter de mon projet
-        </Link>
-      </section>
-    </div>
+      <CtaBand title={sp.ctaTitle} />
+    </>
   );
 }

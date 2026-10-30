@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import HomeContent from "./HomeContent";
 import { defaultOpenGraph } from "@/src/lib/seo";
+import { site } from "@/src/lib/site";
 
 export const metadata: Metadata = {
-  description:
-    "Fikra Tech accompagne les entreprises tchadiennes dans leur transformation numérique : création de sites web, développement sur mesure, digitalisation et intelligence artificielle.",
+  description: site.description,
+  alternates: { canonical: "/" },
   openGraph: {
     ...defaultOpenGraph,
-    title: "Fikra Tech — Sites web, développement & IA au Tchad",
+    title: "Fikra Tech, agence d'intelligence artificielle au Tchad",
     description:
-      "Fikra Tech accompagne les entreprises tchadiennes dans leur transformation numérique.",
+      "Chatbots WhatsApp, numérisation d'archives, analyse de données, sites et applications pour les organisations du Tchad.",
   },
 };
 

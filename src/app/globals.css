@@ -1,33 +1,63 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
-
 @theme {
+  /* Vos couleurs d'origine */
   --color-primary: #7C3AED;
   --color-primary-light: #A78BFA;
   --color-dark: #0F0F1A;
   --color-light: #F8F7F5;
   --color-muted: #9CA3AF;
   --color-accent: #3B82F6;
+
+  /* Ajouts pour la refonte */
+  --color-surface: #14141F; /* sections alternées, un peu plus claires que le fond */
+  --color-wa: #1fa855;      /* vert WhatsApp */
+
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-display: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-arabic: var(--font-noto-arabic), "Noto Sans Arabic", sans-serif;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
- 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-dark);
+  color: #ffffff;
+  font-family: var(--font-sans);
 }
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary-light);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Version arabe : police arabe et pas d'espacement entre les lettres */
+html[lang="ar"] body {
+  font-family: var(--font-arabic), var(--font-sans);
+}
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

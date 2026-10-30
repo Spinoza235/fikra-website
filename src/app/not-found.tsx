@@ -2,20 +2,13 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="bg-dark min-h-[70vh] flex flex-col items-center justify-center px-6 text-center">
-      <span className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">
-        Erreur 404
-      </span>
-      <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-        Page introuvable
-      </h1>
-      <p className="text-muted max-w-md mb-10">
-        La page que vous cherchez n&apos;existe pas.
+    <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
+      <p className="mb-4 font-medium text-primary-light">Erreur 404</p>
+      <h1 className="mb-5 text-4xl font-semibold text-white md:text-6xl">Cette page n&apos;existe pas</h1>
+      <p className="mb-10 max-w-md text-muted">
+        Le lien est peut-être ancien ou mal saisi. Revenez à l&apos;accueil pour retrouver nos services.
       </p>
-      <Link
-        href="/"
-        className="bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
-      >
+      <Link href="/" className="rounded-xl bg-primary px-7 py-3.5 font-semibold text-white hover:bg-primary-light">
         Retour à l&apos;accueil
       </Link>
     </div>

@@ -1,12 +1,11 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/src/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fikra-tech.vercel.app";
-
-  const routes = ["", "/services", "/a-propos", "/portfolio", "/contact"];
+  const routes = ["", "/services", "/portfolio", "/a-propos", "/contact"];
 
   return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${SITE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.8,

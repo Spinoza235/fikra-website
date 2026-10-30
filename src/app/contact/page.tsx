@@ -3,13 +3,14 @@ import ContactContent from "./ContactContent";
 import { defaultOpenGraph } from "@/src/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact — Discutons de votre projet",
+  title: "Contact, parlons de votre projet IA ou numérique",
   description:
-    "Contactez Fikra Tech pour discuter de votre projet de site web, développement sur mesure ou digitalisation. Réponse rapide, devis adapté à votre budget.",
+    "Contactez Fikra Tech à N'Djamena par WhatsApp ou par message : chatbot, numérisation, analyse de données, site web ou formation. Premier échange gratuit.",
+  alternates: { canonical: "/contact" },
   openGraph: {
     ...defaultOpenGraph,
     title: "Contactez Fikra Tech",
-    description: "Discutons de votre projet, réponse rapide et devis adapté.",
+    description: "Premier échange gratuit, sur WhatsApp ou par message.",
   },
 };
 

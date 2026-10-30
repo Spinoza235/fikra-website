@@ -3,20 +3,41 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Languages } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useLang } from "@/src/lib/i18n";
 
-const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/a-propos", label: "À propos" },
-  { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Réalisations" },
-  { href: "/contact", label: "Contact" },
-];
+// Bouton qui change la langue du site (français ⇄ arabe)
+function LangSwitch({ className = "" }: { className?: string }) {
+  const { t, toggle } = useLang();
+  return (
+    <button
+      onClick={toggle}
+      aria-label={t.nav.switchAria}
+      className={`inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white transition-all duration-300 hover:border-primary/50 hover:bg-white/10 ${className}`}
+    >
+      <Languages className="h-4 w-4 text-primary-light" aria-hidden="true" />
+      <span className={t.nav.switchLabel === "عربي" ? "font-arabic" : ""}>{t.nav.switchLabel}</span>
+    </button>
+  );
+}
 
 export default function Header() {
+  const { t } = useLang();
+  const navLinks = [
+    { href: "/", label: t.nav.home },
+    { href: "/a-propos", label: t.nav.about },
+    { href: "/services", label: t.nav.services },
+    { href: "/portfolio", label: t.nav.portfolio },
+    { href: "/contact", label: t.nav.contact },
+  ];
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Ferme le menu mobile quand on change de page
+  useEffect(() => setIsOpen(false), [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,25 +73,34 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-muted hover:text-primary transition-colors duration-300"
+                aria-current={(link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)) ? "page" : undefined}
+                className={`transition-colors duration-300 hover:text-primary ${
+                  (link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)) ? "text-white" : "text-muted"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <Link
-            href="/contact"
-            className="hidden md:flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-5 py-2 text-sm font-medium text-white hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group"
-          >
-            Discuter d&apos;un projet
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
+          <div className="hidden md:flex items-center gap-2">
+            <LangSwitch />
+            <Link
+              href="/contact"
+              className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur px-5 py-2 text-sm font-medium text-white hover:bg-white/10 hover:border-primary/50 transition-all duration-300 group"
+            >
+              {t.nav.cta}
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100" />
+            </Link>
+          </div>
 
+          <div className="md:hidden flex items-center gap-2">
+          <LangSwitch className="!px-2.5 !py-1.5" />
           <button
             className="md:hidden relative w-8 h-8 flex flex-col justify-center items-center gap-[6px] z-50"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Ouvrir le menu"
+            aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={isOpen}
           >
             <span
               className={`block h-0.5 w-6 bg-white rounded-full transition-all duration-300 ease-in-out ${
@@ -88,6 +118,7 @@ export default function Header() {
               }`}
             />
           </button>
+          </div>
         </div>
 
         <AnimatePresence>
@@ -138,8 +169,8 @@ export default function Header() {
                     onClick={() => setIsOpen(false)}
                     className="mx-2 mt-1 mb-2 flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 text-white text-center px-4 py-3 font-medium hover:bg-white/10 transition-colors duration-300"
                   >
-                    Discuter d&apos;un projet
-                    <ArrowUpRight className="w-4 h-4" />
+                    {t.nav.cta}
+                    <ArrowUpRight className="w-4 h-4 rtl:-scale-x-100" />
                   </Link>
                 </div>
               </motion.nav>

@@ -1,388 +1,293 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import {
-  Play,
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-  X,
-  ExternalLink,
-} from "lucide-react";
-import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, X, ExternalLink, Check, Images, Sparkles } from "lucide-react";
+import { projects, type Project } from "@/src/lib/projects";
+import { CtaBand } from "@/src/components/Blocks";
+import GridBackground from "@/src/components/GridBackground";
+import Reveal from "@/src/components/Reveal";
 
-type Project = {
-  id: number;
-  title: string;
-  category: string;
-  shortDescription: string;
-  fullDescription?: string;
-  images: string[];
-  isVideo?: boolean;
-  videoSrc?: string;
-  url?: string; // lien vers le site en ligne, si applicable
-};
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "HopeStock",
-    category: "Application desktop",
-    shortDescription:
-      "Une solution de gestion de boutique 100% hors-ligne, pensée pour le quotidien du commerce africain — négociation de prix, crédits clients et assistant IA intégré.",
-    fullDescription:
-      "HopeStock est une application de bureau conçue pour répondre aux vraies réalités du commerce de détail en Afrique — pas une adaptation d'un logiciel occidental, mais un outil pensé dès le départ pour ce contexte. Elle fonctionne entièrement hors-ligne : aucune connexion internet requise pour vendre, suivre son stock ou consulter ses finances, ce qui la rend fiable même dans les zones à connectivité limitée.\n\nDeux fonctionnalités reflètent particulièrement cette approche africaine : la gestion de la négociation de prix, pour accompagner la pratique courante du marchandage en boutique, et un système de crédit client pour les clients qui repartent avec un produit sans payer immédiatement et règlent plus tard.\n\nL'application intègre aussi un assistant IA consultable depuis le tableau de bord, capable de répondre en langage naturel à des questions sur les ventes, le stock ou les finances de la boutique.\n\nHopeStock n'est pas resté un projet de démonstration : l'application a été développée et déployée pour un client réel, une boutique d'informatique et d'électronique, qui l'utilise aujourd'hui au quotidien pour gérer ses ventes et son stock.\n\nParmi les autres fonctionnalités : historique des ventes mois par mois, système de retour produit, génération de reçus avec QR code, sauvegardes et export de rapports mensuels.",
-    images: [
-      "/images/portfolio/hopestock-1.png",
-      "/images/portfolio/hopestock-2.png",
-      "/images/portfolio/hopestock-3.png",
-      "/images/portfolio/hopestock-4.png",
-      "/images/portfolio/hopestock-5.png",
-      "/images/portfolio/hopestock-6.png",
-      "/images/portfolio/hopestock-7.png",
-      "/images/portfolio/hopestock-8.png",
-      "/images/portfolio/hopestock-9.png",
-      "/images/portfolio/hopestock-10.png",
-    ],
-    // Pas d'url : application desktop, pas de site web à visiter
-  },
-  {
-    id: 2,
-    title: "Jeff Computer",
-    category: "Site e-commerce",
-    shortDescription:
-      "Boutique en ligne pour la vente d'ordinateurs portables reconditionnés — catalogue filtrable par marque, fiches produits détaillées et mise en avant des prix en FCFA, pensée pour convertir vite.",
-    fullDescription:
-      "Jeff Computer est un site e-commerce développé pour un vendeur d'ordinateurs portables reconditionnés, aujourd'hui en ligne et utilisé activement pour présenter et vendre ses produits.\n\nLe site met l'accent sur la clarté de l'offre : chaque ordinateur est présenté avec ses caractéristiques techniques essentielles (processeur, RAM, stockage, écran) et son prix directement affiché en FCFA, sans étape cachée. Un système de filtre par catégorie (marques HP, Dell, Lenovo...) permet aux visiteurs de retrouver rapidement le modèle qui correspond à leur besoin et à leur budget.\n\nUne barre de recherche, un bouton de contact direct toujours visible et une fiche produit extensible (\"Voir plus\") complètent l'expérience pour faciliter la prise de contact et la conversion, même pour des visiteurs peu familiers avec les achats en ligne.",
-    images: [
-      "/images/portfolio/jeffcomputer-1.png",
-      "/images/portfolio/jeffcomputer-2.png",
-      "/images/portfolio/jeffcomputer-3.png",
-    ],
-    url: "https://vente-ordinateur-jeff.vercel.app/",
-  },
-  {
-    id: 3,
-    title: "URCHINGE",
-    category: "Site vitrine scientifique",
-    shortDescription:
-      "Site institutionnel pour un laboratoire de recherche en chimie — mise en valeur des projets, de l'équipe et des équipements, avec un espace recherche filtrable par statut et domaine.",
-    fullDescription:
-      "URCHINGE est le site vitrine développé pour un laboratoire de recherche en chimie, conçu pour refléter son sérieux scientifique et faciliter la découverte de ses travaux par des partenaires, chercheurs ou étudiants.\n\nLe cœur du site est sa section Projets de Recherche : chaque projet est présenté avec sa durée, le nombre de chercheurs impliqués, son domaine (chimie organique, etc.), son statut d'avancement et ses partenaires institutionnels (comme le CNRS ou l'Université de Paris). Une recherche par mot-clé et des filtres par statut et par domaine permettent de naviguer facilement dans l'ensemble des recherches menées.\n\nLe site regroupe aussi les sections Équipe, Équipement et Actualités, donnant une vue complète et professionnelle de l'activité du laboratoire — un outil de crédibilité autant qu'une vitrine.",
-    images: [
-      "/images/portfolio/urchinge-1.png",
-      "/images/portfolio/urchinge-2.png",
-    ],
-    url: "https://lab-tmp.vercel.app/",
-  },
-];
-
-function ProjectCard({
-  project,
-  index,
-  onOpen,
-}: {
-  project: Project;
-  index: number;
-  onOpen: (project: Project) => void;
-}) {
+/* Cadre « fenêtre de navigateur / logiciel » autour des captures */
+function DeviceFrame({ project, onOpen }: { project: Project; onOpen: () => void }) {
+  const label = project.url ? project.url.replace(/^https?:\/\//, "").replace(/\/$/, "") : project.title;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="group relative flex-shrink-0 w-[280px] sm:w-auto snap-start cursor-pointer"
-      onClick={() => onOpen(project)}
+    <button
+      onClick={onOpen}
+      className="group relative block w-full text-left"
+      aria-label={`Voir les captures du projet ${project.title}`}
     >
-      <div className="relative rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/10 group-hover:from-primary group-hover:to-primary-light transition-all duration-500">
-        <div className="bg-dark rounded-2xl overflow-hidden">
-          <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
-            <Image
-              src={project.images[0]}
-              alt={project.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-
-            <span className="absolute top-4 left-4 text-white/40 text-xs font-mono tracking-widest">
-              {String(project.id).padStart(2, "0")}
+      {/* halo */}
+      <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-primary/40 to-primary-light/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#161626] shadow-2xl shadow-black/50 transition-transform duration-500 group-hover:-translate-y-1.5">
+        <div className="flex items-center gap-2 border-b border-white/10 bg-white/[0.03] px-4 py-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          <span className="ml-3 truncate rounded-md bg-white/5 px-3 py-1 text-xs text-muted">{label}</span>
+        </div>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <Image
+            src={project.images[0]}
+            alt={`Capture du projet ${project.title}`}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-dark">
+              <Images className="h-3.5 w-3.5" aria-hidden="true" />
+              {project.images.length} captures
             </span>
-
-            {project.images.length > 1 && (
-              <span className="absolute top-4 right-4 text-white/70 text-[10px] font-mono bg-black/40 backdrop-blur px-2 py-1 rounded-full">
-                {project.images.length} photos
-              </span>
-            )}
-
-            {project.isVideo && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full bg-primary/90 backdrop-blur flex items-center justify-center scale-90 group-hover:scale-100 transition-transform duration-300">
-                  <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
-                </div>
-              </div>
-            )}
-
-            <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-              <p className="text-primary-light text-xs font-semibold uppercase tracking-wide mb-1">
-                {project.category}
-              </p>
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="text-white font-semibold text-lg">{project.title}</h3>
-                <ArrowUpRight className="w-5 h-5 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0" />
-              </div>
-            </div>
-          </div>
-
-          <div className="p-5 pt-4">
-            <p className="text-muted text-sm leading-relaxed line-clamp-2">
-              {project.shortDescription}
-            </p>
           </div>
         </div>
       </div>
-    </motion.div>
+    </button>
   );
 }
 
-function ProjectModal({
-  project,
-  onClose,
-}: {
-  project: Project;
-  onClose: () => void;
-}) {
-  const [imgIndex, setImgIndex] = useState(0);
-  const [expanded, setExpanded] = useState(false);
+function ProjectDetails({ project, onOpen, featured }: { project: Project; onOpen: () => void; featured?: boolean }) {
+  return (
+    <div>
+      <div className="flex flex-wrap items-center gap-2">
+        {featured && (
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-primary to-primary-light px-3 py-1 text-xs font-semibold text-white">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+            Projet phare
+          </span>
+        )}
+        <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary-light">
+          {project.category}
+        </span>
+      </div>
 
-  const next = () => setImgIndex((i) => (i + 1) % project.images.length);
-  const prev = () =>
-    setImgIndex((i) => (i - 1 + project.images.length) % project.images.length);
+      <h2 className={`mt-5 font-bold text-white ${featured ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"}`}>
+        {project.title}
+      </h2>
+      <p className="mt-4 text-lg leading-relaxed text-muted">{project.shortDescription}</p>
+
+      {project.highlights && (
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          {project.highlights.map((h) => (
+            <li key={h} className="flex items-start gap-2.5 text-[15px] text-white/90">
+              <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-primary/20">
+                <Check className="h-3 w-3 text-primary-light" aria-hidden="true" />
+              </span>
+              {h}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {project.tags && (
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {project.tags.map((t) => (
+            <li key={t} className="rounded-md bg-white/5 px-2.5 py-1 text-xs text-muted">
+              {t}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="mt-8 flex flex-wrap gap-3">
+        <button
+          onClick={onOpen}
+          className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-primary hover:bg-primary/20"
+        >
+          <Images className="h-4 w-4" aria-hidden="true" />
+          Voir les captures
+        </button>
+        {project.url && (
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary-light px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-transform hover:-translate-y-0.5"
+          >
+            Voir le site en ligne
+            <ExternalLink className="h-4 w-4" aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  const [imgIndex, setImgIndex] = useState(0);
+  const count = project.images.length;
+  const next = useCallback(() => setImgIndex((i) => (i + 1) % count), [count]);
+  const prev = useCallback(() => setImgIndex((i) => (i - 1 + count) % count), [count]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose, next, prev]);
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-4 backdrop-blur-md sm:p-6"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={project.title}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-dark border border-white/10 rounded-2xl"
+        exit={{ opacity: 0, scale: 0.96 }}
+        className="w-full max-w-5xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* CAROUSEL */}
-        {project.isVideo && project.videoSrc ? (
-          <div className="aspect-video bg-black">
-            <video src={project.videoSrc} controls autoPlay className="w-full h-full" />
-          </div>
-        ) : (
-          <div className="relative aspect-[16/10] bg-black">
-           <Image
-              src={project.images[imgIndex]}
-              alt={`${project.title} — image ${imgIndex + 1}`}
-              fill
-              className="object-contain"
-            />
-
-            {project.images.length > 1 && (
-              <>
-                <button
-                  onClick={prev}
-                  aria-label="Image précédente"
-                  className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-primary transition-colors"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={next}
-                  aria-label="Image suivante"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-primary transition-colors"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                  {project.images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setImgIndex(i)}
-                      aria-label={`Aller à l'image ${i + 1}`}
-                      className={`h-1.5 rounded-full transition-all ${
-                        i === imgIndex ? "w-5 bg-primary" : "w-1.5 bg-white/40"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-
-            <button
-              onClick={onClose}
-              aria-label="Fermer"
-              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur flex items-center justify-center text-white hover:bg-primary transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {/* TEXTE */}
-        <div className="p-6">
-          <div className="flex items-start justify-between gap-4 mb-1">
-            <p className="text-primary-light text-xs font-semibold uppercase tracking-wide">
-              {project.category}
-            </p>
-
-            {project.url && (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-light border border-primary/40 hover:border-primary rounded-full px-3 py-1.5 transition-colors flex-shrink-0"
-              >
-                Voir le site en ligne
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
-          </div>
-
-          <h3 className="text-white font-bold text-xl mb-3">{project.title}</h3>
-
-          <p
-            className={`text-muted text-sm leading-relaxed whitespace-pre-line ${
-              expanded ? "" : "line-clamp-3"
-            }`}
-          >
-            {project.fullDescription ?? project.shortDescription}
+        <div className="mb-3 flex items-center justify-between text-white">
+          <p className="font-semibold">
+            {project.title} <span className="ml-2 text-sm font-normal text-muted">{imgIndex + 1} / {count}</span>
           </p>
+          <button onClick={onClose} aria-label="Fermer" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
-          {project.fullDescription && (
-            <button
-              onClick={() => setExpanded((e) => !e)}
-              className="mt-3 text-primary text-sm font-medium hover:text-primary-light transition-colors"
+        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b14]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={imgIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.25 }}
+              className="absolute inset-0"
             >
-              {expanded ? "Lire moins" : "Lire plus"}
-            </button>
+              <Image
+                src={project.images[imgIndex]}
+                alt={`${project.title}, capture ${imgIndex + 1} sur ${count}`}
+                fill
+                sizes="1024px"
+                className="object-contain"
+              />
+            </motion.div>
+          </AnimatePresence>
+          {count > 1 && (
+            <>
+              <button onClick={prev} aria-label="Capture précédente" className="absolute top-1/2 left-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur hover:bg-primary">
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button onClick={next} aria-label="Capture suivante" className="absolute top-1/2 right-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur hover:bg-primary">
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </>
           )}
         </div>
+
+        {count > 1 && (
+          <div className="scrollbar-hide mt-3 flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+            {project.images.map((src, i) => (
+              <button
+                key={src}
+                onClick={() => setImgIndex(i)}
+                aria-label={`Afficher la capture ${i + 1}`}
+                className={`relative h-14 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                  i === imgIndex ? "border-primary-light opacity-100" : "border-transparent opacity-50 hover:opacity-90"
+                }`}
+              >
+                <Image src={src} alt="" fill sizes="96px" className="object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function PortfolioContent() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const amount = 300;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
+  const close = useCallback(() => setOpenProject(null), []);
+  const [featured, ...others] = projects;
 
   return (
-    <div className="bg-dark">
-      {/* HEADER DE PAGE */}
-      <section className="px-6 py-20 text-center border-b border-white/10">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-block text-primary text-sm font-semibold tracking-widest uppercase mb-4"
-        >
-          Portfolio
-        </motion.span>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
-        >
-          Ce que nous <span className="text-primary">construisons</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-muted max-w-xl mx-auto"
-        >
-          Chaque projet est une idée transformée en solution concrète. Voici un aperçu de notre
-          travail.
-        </motion.p>
+    <>
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-16 pb-20 sm:px-6 md:pt-24 md:pb-24">
+        <GridBackground />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[620px] -translate-x-1/2 rounded-full bg-primary/25 blur-[120px]" />
+        <div className="relative mx-auto max-w-4xl text-center">
+          <Reveal>
+            <h1 className="text-4xl leading-[1.08] font-bold md:text-6xl">
+              Des projets livrés,{" "}
+              <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+                utilisés chaque jour
+              </span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              Logiciels avec IA, sites e-commerce et sites institutionnels : voici ce que nous avons
+              construit pour nos clients.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <ul className="mt-8 flex flex-wrap justify-center gap-3">
+              {[`${projects.length} projets en ligne ou en service`, "IA intégrée", "Pensés pour le Tchad"].map((t) => (
+                <li key={t} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/90 backdrop-blur">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </section>
 
-      {/* MOBILE : carrousel horizontal avec flèches */}
-      <section className="py-16 sm:hidden">
-        <div className="flex items-center justify-between px-6 mb-4">
-          <p className="text-muted text-xs uppercase tracking-wide">Faites glisser →</p>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white hover:border-primary hover:text-primary transition-colors"
-              aria-label="Précédent"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white hover:border-primary hover:text-primary transition-colors"
-              aria-label="Suivant"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
+      {/* PROJET PHARE */}
+      {featured && (
+        <section className="px-4 py-20 sm:px-6 md:py-28">
+          <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+            <Reveal>
+              <DeviceFrame project={featured} onOpen={() => setOpenProject(featured)} />
+            </Reveal>
+            <Reveal delay={0.15}>
+              <ProjectDetails project={featured} featured onOpen={() => setOpenProject(featured)} />
+            </Reveal>
           </div>
-        </div>
+        </section>
+      )}
 
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto px-6 pb-4 snap-x snap-mandatory scrollbar-hide"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} onOpen={setOpenProject} />
-          ))}
-        </div>
-      </section>
+      {/* AUTRES PROJETS, en alternance */}
+      {others.map((project, i) => (
+        <section key={project.id} className="relative border-t border-white/10 px-4 py-20 sm:px-6 md:py-28">
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute top-1/3 h-72 w-72 rounded-full bg-primary/10 blur-[100px] ${i % 2 === 0 ? "right-0" : "left-0"}`}
+          />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <Reveal className={i % 2 === 0 ? "lg:order-2" : ""}>
+              <DeviceFrame project={project} onOpen={() => setOpenProject(project)} />
+            </Reveal>
+            <Reveal delay={0.15} className={i % 2 === 0 ? "lg:order-1" : ""}>
+              <ProjectDetails project={project} onOpen={() => setOpenProject(project)} />
+            </Reveal>
+          </div>
+        </section>
+      ))}
 
-      {/* DESKTOP/TABLETTE : grille */}
-      <section className="hidden sm:block px-6 py-20">
-        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} onOpen={setOpenProject} />
-          ))}
-        </div>
-      </section>
-
-      {/* MODALE PROJET (carousel + lire plus / vidéo) */}
       <AnimatePresence>
-        {openProject && (
-          <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
-        )}
+        {openProject && <ProjectModal project={openProject} onClose={close} />}
       </AnimatePresence>
 
-      {/* CTA */}
-      <section className="px-6 pb-24 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          Votre projet pourrait être le prochain
-        </h2>
-        <p className="text-muted max-w-xl mx-auto mb-8">
-          Parlons de vos besoins et voyons comment nous pouvons vous accompagner.
-        </p>
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 bg-primary hover:bg-primary-light text-white px-8 py-3 rounded-lg font-medium transition-colors duration-300"
-        >
-          Démarrer un projet
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
-      </section>
-    </div>
+      <CtaBand title="Votre projet pourrait être le prochain" />
+    </>
   );
 }

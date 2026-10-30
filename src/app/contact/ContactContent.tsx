@@ -1,178 +1,146 @@
 "use client";
 
 import { useForm, ValidationError } from "@formspree/react";
-import { motion } from "framer-motion";
-import { Mail, MessageCircle, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { PageHero } from "@/src/components/Blocks";
+import { site, whatsappLink } from "@/src/lib/site";
+import { getContactSubjects } from "@/src/lib/services";
+import { useLang } from "@/src/lib/i18n";
+
+const field =
+  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[15px] text-white outline-none transition-colors placeholder:text-muted/70 focus:border-primary";
 
 export default function ContactContent() {
   const [state, handleSubmit] = useForm("xqpzwkrg");
+  const { t } = useLang();
+  const c = t.contact;
+  const contactSubjects = getContactSubjects(t);
 
   return (
-    <div className="bg-dark">
-      {/* HEADER DE PAGE */}
-      <section className="px-6 py-20 text-center border-b border-white/10">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4"
-        >
-          Parlons de votre <span className="text-primary">projet</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-muted max-w-xl mx-auto"
-        >
-          Décrivez-nous votre besoin, nous revenons vers vous rapidement avec une réponse
-          adaptée.
-        </motion.p>
-      </section>
+    <>
+      <PageHero
+        title={c.title}
+        intro={c.intro}
+      />
 
-      <section className="px-6 py-20">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-10">
-          {/* Coordonnées */}
-          <div className="md:col-span-2 flex flex-col gap-6">
-            <div className="flex items-start gap-4">
-              <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light">
-                <Mail className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-medium mb-1">Email</p>
-                <p className="text-muted text-sm">contact@fikratech.com</p>
-              </div>
-            </div>
+      <section className="px-4 py-16 sm:px-6 md:py-20">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.5fr]">
+          <div className="flex flex-col gap-4">
+            <a
+              href={whatsappLink(t.common.waDefault)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 rounded-2xl bg-wa p-5 text-white transition hover:brightness-105"
+            >
+              <FaWhatsapp className="h-8 w-8 flex-shrink-0" aria-hidden="true" />
+              <span>
+                <span className="block font-semibold">{t.common.whatsapp}</span>
+                <span className="text-sm text-white/85" dir="ltr">{site.phoneDisplay}</span>
+              </span>
+            </a>
 
-            <div className="flex items-start gap-4">
-              <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light">
-                <MessageCircle className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-medium mb-1">WhatsApp</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-primary"
+            >
+              <Mail className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
+              <span>
+                <span className="block font-semibold text-white">{c.email}</span>
+                <span className="text-sm text-muted">{site.email}</span>
+              </span>
+            </a>
 
-                <a href="https://wa.me/235 66 92 58 38"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted text-sm hover:text-primary transition-colors"
-                >
-                  +235 66 92 58 38
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="w-11 h-11 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light">
-                <MapPin className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-white font-medium mb-1">Localisation</p>
-                <p className="text-muted text-sm">N&apos;Djamena, Tchad</p>
-              </div>
+            <div className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5">
+              <MapPin className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
+              <span>
+                <span className="block font-semibold text-white">{c.whereTitle}</span>
+                <span className="text-sm text-muted">
+                  {t.common.city}, {t.common.country}. {c.whereText}
+                </span>
+              </span>
             </div>
           </div>
 
-          {/* Formulaire */}
-          <div className="md:col-span-3">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
             {state.succeeded ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/5 border border-primary/30 rounded-2xl p-10 text-center flex flex-col items-center gap-4"
-              >
-                <CheckCircle2 className="w-12 h-12 text-primary" />
-                <h3 className="text-white font-semibold text-lg">Message envoyé !</h3>
-                <p className="text-muted text-sm">
-                  Merci pour votre message, nous vous répondons très prochainement.
+              <div className="flex flex-col items-center gap-4 py-10 text-center" role="status">
+                <CheckCircle2 className="h-12 w-12 text-primary" aria-hidden="true" />
+                <h2 className="text-2xl font-semibold">{c.sentTitle}</h2>
+                <p className="max-w-sm text-muted">
+                  {c.sentText}
                 </p>
-              </motion.div>
+              </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid sm:grid-cols-2 gap-5">
+                <h2 className="text-2xl font-semibold">{c.formTitle}</h2>
+                <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-white text-sm mb-2">
-                      Nom complet
+                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-white">
+                      {c.name}
                     </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary transition-colors"
-                      placeholder="Votre nom"
-                    />
+                    <input id="name" name="name" type="text" required autoComplete="name" className={field} />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-white text-sm mb-2">
-                      Email
+                    <label htmlFor="organisation" className="mb-2 block text-sm font-medium text-white">
+                      {c.org} <span className="font-normal text-muted">{c.optional}</span>
                     </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary transition-colors"
-                      placeholder="vous@exemple.com"
-                    />
-                    <ValidationError
-                      prefix="Email"
-                      field="email"
-                      errors={state.errors}
-                      className="text-red-400 text-xs mt-1"
-                    />
+                    <input id="organisation" name="organisation" type="text" autoComplete="organization" className={field} />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="mb-2 block text-sm font-medium text-white">
+                      {c.emailLabel}
+                    </label>
+                    <input id="email" name="email" type="email" required autoComplete="email" className={field} />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className="mt-1 text-xs text-red-600" />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="mb-2 block text-sm font-medium text-white">
+                      {c.phone} <span className="font-normal text-muted">{c.optional}</span>
+                    </label>
+                    <input id="phone" name="phone" type="tel" dir="ltr" autoComplete="tel" placeholder="+235" className={field} />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-white text-sm mb-2">
-                    Type de besoin
+                  <label htmlFor="subject" className="mb-2 block text-sm font-medium text-white">
+                    {c.need}
                   </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary transition-colors"
-                  >
-                    <option className="bg-dark">Création de site web</option>
-                    <option className="bg-dark">Développement sur mesure</option>
-                    <option className="bg-dark">Digitalisation d&apos;entreprise</option>
-                    <option className="bg-dark">Intelligence artificielle</option>
-                    <option className="bg-dark">Autre</option>
+                  <select id="subject" name="subject" className={field} key={t.contact.other} defaultValue={contactSubjects[0]}>
+                    {contactSubjects.map((s) => (
+                      <option key={s} className="bg-dark">{s}</option>
+                    ))}
                   </select>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-white text-sm mb-2">
-                    Votre message
+                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-white">
+                    {c.message}
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary transition-colors resize-none"
-                    placeholder="Décrivez-nous votre projet..."
+                    className={`${field} resize-none`}
+                    placeholder={c.placeholder}
                   />
-                  <ValidationError
-                    prefix="Message"
-                    field="message"
-                    errors={state.errors}
-                    className="text-red-400 text-xs mt-1"
-                  />
+                  <ValidationError prefix="Message" field="message" errors={state.errors} className="mt-1 text-xs text-red-600" />
                 </div>
 
                 <button
                   type="submit"
                   disabled={state.submitting}
-                  className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-light disabled:opacity-60 text-white px-6 py-3.5 rounded-xl font-medium transition-colors duration-300"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-semibold text-white transition-colors hover:bg-primary-light disabled:opacity-60"
                 >
-                  {state.submitting ? "Envoi en cours..." : "Envoyer le message"}
-                  {!state.submitting && <Send className="w-4 h-4" />}
+                  {state.submitting ? c.sending : c.submit}
+                  {!state.submitting && <Send className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />}
                 </button>
               </form>
             )}
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

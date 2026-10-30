@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 import Chatbot from "@/src/components/Chatbot";
-import { defaultOpenGraph } from "@/src/lib/seo";
-
+import MotionProvider from "@/src/components/MotionProvider";
+import { LanguageProvider } from "@/src/lib/i18n";
+import { defaultOpenGraph, organizationJsonLd, SITE_URL } from "@/src/lib/seo";
+import { site } from "@/src/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,14 +19,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const arabic = Noto_Sans_Arabic({
+  variable: "--font-noto-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fikra-website.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fikra Tech | Création de sites web, développement & digitalisation au Tchad",
+    default: "Fikra Tech | Agence d'intelligence artificielle au Tchad",
     template: "%s | Fikra Tech",
   },
-  description:
-    "Fikra Tech accompagne les entreprises tchadiennes dans leur transformation numérique : création de sites web, développement sur mesure, digitalisation et automatisation.",
+  description: site.description,
+  alternates: { canonical: "/" },
   icons: {
     icon: "/fikra-favicon-32.png",
     apple: "/fikra-apple-touch-180.png",
@@ -40,13 +48,23 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      dir="ltr"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${arabic.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-dark">
-        <Header />
-        <main className="flex-1 pt-20 bg-dark">{children}</main>
-        <Footer />
-        <Chatbot />
+      <body className="min-h-full flex flex-col bg-dark text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <LanguageProvider>
+          <MotionProvider>
+            <Header />
+            <main className="flex-1 pt-24 bg-dark">{children}</main>
+            <Footer />
+            <Chatbot />
+          </MotionProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
