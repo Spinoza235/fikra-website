@@ -8,7 +8,8 @@ export type Project = {
   fullDescription?: string;
   images: string[];
   isVideo?: boolean;
-  videoSrc?: string;
+  videoSrc?: string; // vidéo de démonstration (dans /public/videos/)
+  poster?: string; // image affichée avant la lecture de la vidéo
   url?: string; // lien vers le site en ligne, si applicable
   highlights?: string[]; // 3 ou 4 points forts affichés sur la page Réalisations
   tags?: string[]; // technologies ou mots-clés
@@ -73,6 +74,9 @@ export const projects: Project[] = [
       "/images/portfolio/hopestock-9.png",
       "/images/portfolio/hopestock-10.png",
     ],
+    // Vidéo de démonstration réelle (fichiers dans /public/videos/)
+    videoSrc: "/videos/hopestock-demo.mp4",
+    poster: "/videos/hopestock-demo-poster.jpg",
     // Pas d'url : application desktop, pas de site web à visiter
   },
   {

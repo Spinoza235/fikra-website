@@ -1,27 +1,71 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Check } from "lucide-react";
-import { getPillars } from "@/src/lib/services";
+import { getPillars, type Pillar } from "@/src/lib/services";
 import { PageHero, CtaBand } from "@/src/components/Blocks";
 import Reveal from "@/src/components/Reveal";
 import { useLang } from "@/src/lib/i18n";
 
-export default function ServicesContent() {
-  const { t } = useLang();
-  const sp = t.servicesPage;
-  const pillars = getPillars(t);
+// Menu des 4 domaines.
+// Sur ordinateur, tout tient sur une ligne : rien ne bouge.
+// Sur mobile, le menu dépasse l'écran : il passe tout seul au domaine suivant toutes les 2,5 secondes,
+// et se met en pause 6 secondes quand le visiteur le touche.
+function ServicesNav({ pillars, label }: { pillars: Pillar[]; label: string }) {
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let index = 0;
+    let paused = false;
+    let visible = false;
+    let resume: ReturnType<typeof setTimeout> | undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    observer.observe(list);
+
+    const tick = () => {
+      // Rien à faire si tout est visible (grand écran) ou si le menu n'est pas à l'écran
+      if (paused || !visible || list.scrollWidth <= list.clientWidth + 4) return;
+      index = (index + 1) % list.children.length;
+      const item = list.children[index] as HTMLElement;
+      const listBox = list.getBoundingClientRect();
+      const itemBox = item.getBoundingClientRect();
+      const offset = itemBox.left - listBox.left - (listBox.width - itemBox.width) / 2;
+      list.scrollBy({ left: offset, behavior: "smooth" });
+    };
+    const timer = setInterval(tick, 2500);
+
+    const pause = () => {
+      paused = true;
+      clearTimeout(resume);
+      resume = setTimeout(() => (paused = false), 6000);
+    };
+    list.addEventListener("pointerdown", pause);
+    list.addEventListener("touchstart", pause, { passive: true });
+    list.addEventListener("wheel", pause, { passive: true });
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(resume);
+      observer.disconnect();
+      list.removeEventListener("pointerdown", pause);
+      list.removeEventListener("touchstart", pause);
+      list.removeEventListener("wheel", pause);
+    };
+  }, []);
 
   return (
-    <>
-      <PageHero
-        title={sp.title}
-        intro={sp.intro}
-      />
-
-      {/* Menu des domaines : reste à sa place, sous le titre de la page */}
-      <nav aria-label={sp.navLabel} className="relative z-10 -mt-6 px-4 sm:px-6">
+    <nav aria-label={label} className="relative z-10 -mt-6 px-4 sm:px-6">
+      <div className="mx-auto w-fit max-w-full overflow-hidden rounded-full border border-white/10 bg-[#161626] shadow-2xl shadow-black/40">
         <ul
-          className="scrollbar-hide mx-auto flex w-fit max-w-full gap-1 overflow-x-auto rounded-full border border-white/10 bg-[#161626] p-1.5 shadow-2xl shadow-black/40"
+          ref={listRef}
+          className="scrollbar-hide flex gap-1 overflow-x-auto p-1.5 [mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] md:[mask-image:none]"
           style={{ scrollbarWidth: "none" }}
         >
           {pillars.map((p) => (
@@ -36,7 +80,25 @@ export default function ServicesContent() {
             </li>
           ))}
         </ul>
-      </nav>
+      </div>
+    </nav>
+  );
+}
+
+export default function ServicesContent() {
+  const { t } = useLang();
+  const sp = t.servicesPage;
+  const pillars = getPillars(t);
+
+  return (
+    <>
+      <PageHero
+        title={sp.title}
+        intro={sp.intro}
+      />
+
+      {/* Menu des domaines : reste à sa place ; sur mobile il défile tout seul */}
+      <ServicesNav pillars={pillars} label={sp.navLabel} />
 
       {pillars.map((p, i) => (
         <section key={p.id} id={p.id} className="relative px-4 py-16 sm:px-6 md:py-24">

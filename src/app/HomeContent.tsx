@@ -27,7 +27,7 @@ export default function HomeContent() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-14 pb-16 text-white sm:px-6 md:pt-20 md:pb-24">
+      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-38 pb-16 text-white sm:px-6 md:pt-44 md:pb-24">
         <GridBackground />
         <div
           aria-hidden="true"

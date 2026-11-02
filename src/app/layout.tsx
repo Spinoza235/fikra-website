@@ -60,7 +60,7 @@ export default function RootLayout({
         <LanguageProvider>
           <MotionProvider>
             <Header />
-            <main className="flex-1 pt-24 bg-dark">{children}</main>
+            <main className="flex-1 bg-dark">{children}</main>
             <Footer />
             <Chatbot />
           </MotionProvider>

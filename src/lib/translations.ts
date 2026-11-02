@@ -243,27 +243,31 @@ const fr = {
     teamTitle: "L'équipe fondatrice",
     teamIntro:
       "Trois profils complémentaires, une même ambition : faire du Tchad un acteur de l'intelligence artificielle.",
-    // ✏️ Remplacez les noms, rôles et textes (dans les deux langues)
+    // ✏️ Noms, rôles et textes des fondateurs (dans les deux langues)
     team: [
       {
-        name: "Prénom Nom",
-        role: "Cofondateur, responsable IA",
-        bio: "Formé en intelligence artificielle jusqu'au Master 2 Recherche, il conçoit les modèles et les solutions IA de l'agence, des assistants conversationnels à l'analyse de données.",
-        skills: ["Machine learning", "Chatbots", "Analyse de données"],
+        name: "DINGAMMADJI Espérance",
+        role: "Cofondateur et directeur général, stratégie et conseil IA",
+        bio: "Il accompagne les organisations de l'audit à la décision : il analyse vos processus, repère où l'IA crée de la valeur et pilote les projets jusqu'aux résultats. Il conçoit aussi les assistants intelligents qui répondent à partir de vos documents.",
+        skills: ["Audit et conseil IA", "Assistants intelligents", "Pilotage de projets"],
       },
       {
-        name: "Prénom Nom",
-        role: "Cofondateur, responsable développement",
-        bio: "Du cahier des charges à la mise en ligne, il transforme chaque besoin en application robuste et assure le suivi des clients à chaque étape.",
-        skills: ["Sites web", "Applications", "Intégration IA"],
+        name: "Mourra Adoum Mourra",
+        role: "Cofondateur, responsable technique",
+        bio: "Il transforme les modèles d'IA en produits qui fonctionnent au quotidien : chatbots WhatsApp, applications web et mobiles, intégration à vos outils, mise en ligne et maintenance.",
+        skills: ["Chatbots WhatsApp", "Applications web et mobiles", "Mise en ligne et maintenance"],
       },
       {
-        name: "Prénom Nom",
-        role: "Cofondateur, rôle à préciser",
-        bio: "Décrivez ici en deux phrases son expertise et ce qu'il apporte aux clients de l'agence.",
-        skills: ["Compétence 1", "Compétence 2", "Compétence 3"],
+        name: "MBETEADOUM Nobel",
+        role: "Cofondateur, responsable données et vision par ordinateur",
+        bio: "Il fait parler vos données et vos images : numérisation et lecture de documents, tableaux de bord, prévisions, et détection automatique sur photos ou vidéos.",
+        skills: ["Numérisation (OCR)", "Analyse et prévisions", "Vision par ordinateur"],
       },
     ],
+    supportTitle: "Et derrière les fondateurs, toute une équipe",
+    supportText:
+      "Autour de nous, une équipe de collaborateurs travaille chaque jour pour que vos projets avancent : développement, préparation et annotation des données, tests, support client et communication.",
+    supportRoles: ["Développement", "Annotation des données", "Tests et qualité", "Support client", "Communication"],
     valuesTitle: "Ce qui nous guide",
     values: [
       { title: "Des résultats concrets", text: "Nous ne vendons pas de la technologie pour elle-même. Chaque projet doit faire gagner du temps, de l'argent ou de la sécurité." },
@@ -287,6 +291,8 @@ const fr = {
     next: "Capture suivante",
     capture: "capture",
     ctaTitle: "Votre projet pourrait être le prochain",
+    demoLabel: "Démonstration réelle",
+    playDemo: "Lire la démonstration",
   },
   contact: {
     title: "Parlons de votre projet",
@@ -308,6 +314,17 @@ const fr = {
     sending: "Envoi en cours…",
     sentTitle: "Message envoyé",
     sentText: "Merci. Nous vous répondons rapidement, par email ou sur WhatsApp.",
+    // Ajouts pour la nouvelle page Contact
+    badges: ["Premier échange gratuit", "Réponse en français ou en arabe", "Basés à N'Djamena"],
+    fastest: "Le plus rapide",
+    whatsappHint: "Réponse directe de l'équipe",
+    stepsTitle: "Ce qui se passe ensuite",
+    steps: [
+      { title: "Nous lisons votre message", text: "Un membre de l'équipe vous répond rapidement, par WhatsApp ou par email." },
+      { title: "Un premier échange gratuit", text: "30 minutes pour comprendre votre activité et votre besoin." },
+      { title: "Une proposition claire", text: "Une solution, un délai et un prix, envoyés par écrit." },
+    ],
+    privacy: "Vos informations restent confidentielles et servent uniquement à vous répondre.",
   },
   cta: {
     title: "Parlons de votre projet",
@@ -610,24 +627,28 @@ const ar: Dict = {
     teamIntro: "ثلاثة ملفات متكاملة وطموح واحد: أن تصبح تشاد فاعلًا في مجال الذكاء الاصطناعي.",
     team: [
       {
-        name: "الاسم واللقب",
-        role: "شريك مؤسس، مسؤول الذكاء الاصطناعي",
-        bio: "درس الذكاء الاصطناعي حتى الماستر 2 بحث، ويصمّم نماذج وحلول الوكالة، من المساعدات الحوارية إلى تحليل البيانات.",
-        skills: ["تعلّم الآلة", "روبوتات المحادثة", "تحليل البيانات"],
+        name: "DINGAMMADJI Espérance",
+        role: "شريك مؤسس ومدير عام، الاستراتيجية واستشارات الذكاء الاصطناعي",
+        bio: "يرافق المؤسسات من التدقيق إلى القرار: يحلّل عملياتكم، ويحدّد أين يخلق الذكاء الاصطناعي قيمة، ويقود المشاريع حتى تحقيق النتائج. كما يصمّم المساعدات الذكية التي تجيب انطلاقًا من وثائقكم.",
+        skills: ["تدقيق واستشارات الذكاء الاصطناعي", "المساعدات الذكية", "قيادة المشاريع"],
       },
       {
-        name: "الاسم واللقب",
-        role: "شريك مؤسس، مسؤول التطوير",
-        bio: "من دفتر الشروط إلى الإطلاق، يحوّل كل احتياج إلى تطبيق متين ويتابع العملاء في كل مرحلة.",
-        skills: ["مواقع الويب", "التطبيقات", "دمج الذكاء الاصطناعي"],
+        name: "Mourra Adoum Mourra",
+        role: "شريك مؤسس، المسؤول التقني",
+        bio: "يحوّل نماذج الذكاء الاصطناعي إلى منتجات تعمل يوميًا: روبوتات واتساب، تطبيقات الويب والهاتف، الربط بأدواتكم، النشر والصيانة.",
+        skills: ["روبوتات واتساب", "تطبيقات الويب والهاتف", "النشر والصيانة"],
       },
       {
-        name: "الاسم واللقب",
-        role: "شريك مؤسس، الدور يُحدَّد لاحقًا",
-        bio: "صِفوا هنا في جملتين خبرته وما يقدّمه لعملاء الوكالة.",
-        skills: ["مهارة 1", "مهارة 2", "مهارة 3"],
+        name: "MBETEADOUM Nobel",
+        role: "شريك مؤسس، مسؤول البيانات والرؤية الحاسوبية",
+        bio: "يجعل بياناتكم وصوركم تتكلّم: رقمنة الوثائق وقراءتها، لوحات المتابعة، التوقعات، والكشف الآلي في الصور والفيديو.",
+        skills: ["رقمنة الوثائق (OCR)", "التحليل والتوقع", "الرؤية الحاسوبية"],
       },
     ],
+    supportTitle: "وخلف المؤسسين، فريق كامل",
+    supportText:
+      "يعمل حولنا فريق من المتعاونين كل يوم لكي تتقدّم مشاريعكم: التطوير، وإعداد البيانات وتوسيمها، والاختبارات، ودعم العملاء، والتواصل.",
+    supportRoles: ["التطوير", "توسيم البيانات", "الاختبار والجودة", "دعم العملاء", "التواصل"],
     valuesTitle: "ما يوجّهنا",
     values: [
       { title: "نتائج ملموسة", text: "لا نبيع التكنولوجيا لذاتها. كل مشروع يجب أن يوفّر الوقت أو المال أو الأمان." },
@@ -650,6 +671,8 @@ const ar: Dict = {
     next: "الصورة التالية",
     capture: "صورة",
     ctaTitle: "قد يكون مشروعكم القادم",
+    demoLabel: "عرض حقيقي",
+    playDemo: "تشغيل العرض",
   },
   contact: {
     title: "لنتحدث عن مشروعكم",
@@ -671,6 +694,16 @@ const ar: Dict = {
     sending: "جارٍ الإرسال…",
     sentTitle: "تم إرسال الرسالة",
     sentText: "شكرًا. سنردّ عليكم قريبًا عبر البريد أو واتساب.",
+    badges: ["أول لقاء مجاني", "نردّ بالعربية أو الفرنسية", "مقرّنا في انجامينا"],
+    fastest: "الأسرع",
+    whatsappHint: "ردّ مباشر من الفريق",
+    stepsTitle: "ماذا يحدث بعد ذلك",
+    steps: [
+      { title: "نقرأ رسالتكم", text: "يردّ عليكم أحد أعضاء الفريق بسرعة، عبر واتساب أو البريد الإلكتروني." },
+      { title: "لقاء أول مجاني", text: "30 دقيقة لفهم نشاطكم واحتياجكم." },
+      { title: "عرض واضح", text: "حل ومدة وسعر، مكتوبة ومرسلة إليكم." },
+    ],
+    privacy: "تبقى معلوماتكم سرية ولا تُستخدم إلا للردّ عليكم.",
   },
   cta: {
     title: "لنتحدث عن مشروعكم",

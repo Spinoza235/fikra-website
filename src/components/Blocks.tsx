@@ -3,7 +3,7 @@ import GridBackground from "@/src/components/GridBackground";
 // En-tête commun des pages intérieures.
 export function PageHero({ title, intro }: { title: string; intro: string }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-16 pb-16 sm:px-6 md:pt-24 md:pb-24">
+     <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-40 pb-16 sm:px-6 md:pt-48 md:pb-24">
       <GridBackground />
       <div aria-hidden="true" className="pointer-events-none absolute -top-40 right-[-10%] h-[460px] w-[460px] rounded-full bg-primary/25 blur-[120px]" />
       <div className="relative mx-auto max-w-6xl">

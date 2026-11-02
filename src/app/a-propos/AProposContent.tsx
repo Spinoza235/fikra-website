@@ -1,6 +1,9 @@
 "use client";
 
-import { Target, MapPin, GraduationCap, Lightbulb, Rocket, HeartHandshake } from "lucide-react";
+import {
+  Target, MapPin, GraduationCap, Lightbulb, Rocket, HeartHandshake,
+  Code2, Database, ShieldCheck, Headset, Megaphone, Users,
+} from "lucide-react";
 import { CtaBand } from "@/src/components/Blocks";
 import GridBackground from "@/src/components/GridBackground";
 import Reveal from "@/src/components/Reveal";
@@ -10,10 +13,13 @@ import { useLang } from "@/src/lib/i18n";
 // ✏️ Photos et liens LinkedIn des associés (dans le même ordre que « team » dans translations.ts).
 // Les noms, rôles et textes se modifient dans src/lib/translations.ts, rubrique « about ».
 const teamExtras = [
-  { photo: "/images/team/cofounder-1.jpeg", linkedin: "" },
-  { photo: "/images/team/cofounder-2.jpeg", linkedin: "" },
-  { photo: "/images/team/cofounder-3.jpeg", linkedin: "" },
+  { photo: "/images/team/cofounder-1.png", linkedin: "" }, // DINGAMMADJI Espérance
+  { photo: "/images/team/cofounder-2.jpeg", linkedin: "" }, // Mourra Adoum Mourra
+  { photo: "/images/team/cofounder-3.png", linkedin: "" }, // MBETEADOUM Nobel
 ];
+
+// Icônes des rôles de l'équipe de soutien (même ordre que « supportRoles »)
+const supportIcons = [Code2, Database, ShieldCheck, Headset, Megaphone];
 
 const valueIcons = [Target, MapPin, GraduationCap];
 const journeyIcons = [Lightbulb, Rocket, HeartHandshake];
@@ -28,7 +34,7 @@ export default function AProposContent() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-16 pb-20 sm:px-6 md:pt-24 md:pb-28">
+      <section className="relative overflow-hidden bg-gradient-to-b from-dark to-[#1A1A2E] px-4 pt-40 pb-20 sm:px-6 md:pt-48 md:pb-28">
         <GridBackground />
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-[420px] w-[620px] -translate-x-1/2 rounded-full bg-primary/25 blur-[120px]" />
         <div className="relative mx-auto max-w-4xl text-center">
@@ -123,6 +129,49 @@ export default function AProposContent() {
               <TeamCard key={m.photo} member={m} index={i} />
             ))}
           </div>
+
+          {/* Équipe de soutien */}
+          <Reveal delay={0.1}>
+            <div className="relative mt-10 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-primary/15 via-white/[0.03] to-transparent p-8 md:p-10">
+              <div aria-hidden="true" className="pointer-events-none absolute -end-20 -top-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl" />
+              <div className="relative grid items-center gap-8 md:grid-cols-[auto_1fr]">
+                {/* Pastilles des métiers, qui se chevauchent */}
+                <div className="flex items-center">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-light shadow-lg shadow-primary/30">
+                    <Users className="h-8 w-8 text-white" aria-hidden="true" />
+                  </span>
+                  <div className="ms-4 flex -space-x-3 rtl:space-x-reverse">
+                    {supportIcons.map((Icon, i) => (
+                      <span
+                        key={i}
+                        className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#141424] bg-[#1f1f35] text-primary-light"
+                      >
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{a.supportTitle}</h3>
+                  <p className="mt-3 max-w-2xl leading-relaxed text-muted">{a.supportText}</p>
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {a.supportRoles.map((r, i) => {
+                      const Icon = supportIcons[i] ?? Users;
+                      return (
+                        <li
+                          key={r}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/90"
+                        >
+                          <Icon className="h-4 w-4 text-primary-light" aria-hidden="true" />
+                          {r}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
