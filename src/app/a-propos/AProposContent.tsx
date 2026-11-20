@@ -13,7 +13,7 @@ import { useLang } from "@/src/lib/i18n";
 // ✏️ Photos et liens LinkedIn des associés (dans le même ordre que « team » dans translations.ts).
 // Les noms, rôles et textes se modifient dans src/lib/translations.ts, rubrique « about ».
 const teamExtras = [
-  { photo: "/images/team/cofounder-1.png", linkedin: "" }, // DINGAMMADJI Espérance
+  { photo: "/images/team/cofounder-1.png", linkedin: "" }, // DINGAMMADJI ESPERANCE
   { photo: "/images/team/cofounder-2.jpeg", linkedin: "" }, // Mourra Adoum Mourra
   { photo: "/images/team/cofounder-3.png", linkedin: "" }, // MBETEADOUM Nobel
 ];
@@ -75,7 +75,7 @@ export default function AProposContent() {
             </div>
           </Reveal>
 
-          {/* Carte « Fikra = idée » */}
+          {/* Carte « ZakiCortex = esprit intelligent » */}
           <Reveal delay={0.15}>
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-primary/20 via-white/[0.03] to-transparent p-10 text-center md:p-14">
               <div aria-hidden="true" className="absolute -right-16 -bottom-16 h-56 w-56 rounded-full bg-primary/30 blur-3xl" />
@@ -84,11 +84,11 @@ export default function AProposContent() {
                 dir="rtl"
                 className="relative font-arabic text-7xl font-medium text-transparent bg-gradient-to-r from-primary-light to-white bg-clip-text md:text-8xl"
               >
-                فكرة
+                ذكي
               </p>
-              <p className="relative mt-4 text-2xl font-bold text-white">{a.fikraTitle}</p>
+              <p className="relative mt-4 text-2xl font-bold text-white">{a.nameTitle}</p>
               <p className="relative mx-auto mt-3 max-w-sm leading-relaxed text-muted">
-                {a.fikraText}
+                {a.nameText}
               </p>
             </div>
           </Reveal>

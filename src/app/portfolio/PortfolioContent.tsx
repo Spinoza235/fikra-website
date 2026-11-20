@@ -343,7 +343,11 @@ export default function PortfolioContent() {
           />
           <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal className={i % 2 === 0 ? "lg:order-2" : ""}>
-              <DeviceFrame project={project} onOpen={() => setOpenProject(project)} />
+              {project.videoSrc ? (
+                <VideoFrame project={project} />
+              ) : (
+                <DeviceFrame project={project} onOpen={() => setOpenProject(project)} />
+              )}
             </Reveal>
             <Reveal delay={0.15} className={i % 2 === 0 ? "lg:order-1" : ""}>
               <ProjectDetails project={project} onOpen={() => setOpenProject(project)} />

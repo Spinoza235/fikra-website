@@ -80,6 +80,44 @@ export const projects: Project[] = [
     // Pas d'url : application desktop, pas de site web à visiter
   },
   {
+    id: 4,
+    title: "Archives intelligentes",
+    category: "Numérisation d'archives avec IA",
+    shortDescription:
+      "Des documents scannés ou photographiés sont redressés, lus en français et en arabe, classés automatiquement, puis retrouvés en une seconde en tapant un nom ou un mot.",
+    fullDescription:
+      "Archives intelligentes transforme des documents papier (factures, attestations, contrats, courriers, procès-verbaux) en archives numériques que l'on retrouve instantanément.\n\nUne simple photo prise au téléphone suffit : l'image est remise à plat et redressée, même si le document a été photographié de travers ou à l'envers, puis les ombres sont effacées. Le texte est ensuite lu en français et en arabe, et le type et la date de chaque document sont détectés automatiquement.\n\nLa recherche retrouve un document en quelques millisecondes à partir d'un nom ou d'un mot, même avec une faute de frappe, et se filtre par type, par langue et par année. Le système peut fonctionner entièrement hors ligne, dans les locaux du client : les documents ne quittent jamais l'organisation.\n\nPensé pour les administrations, les écoles, les cliniques, les cabinets d'avocats et les entreprises qui accumulent des archives papier.",
+    ar: {
+      category: "رقمنة الأرشيف بالذكاء الاصطناعي",
+      shortDescription:
+        "وثائق ممسوحة ضوئيًا أو مصوَّرة تُقوَّم وتُقرأ بالفرنسية والعربية وتُصنَّف تلقائيًا، ثم يُعثر عليها في ثانية بكتابة اسم أو كلمة.",
+      highlights: [
+        "قراءة الفرنسية والعربية",
+        "تقويم الصور المائلة أو المقلوبة تلقائيًا",
+        "التعرّف التلقائي على نوع الوثيقة وتاريخها",
+        "بحث في أجزاء من الثانية رغم الأخطاء الإملائية",
+      ],
+      tags: ["قراءة آلية للنصوص", "بحث ذكي", "دون إنترنت"],
+    },
+    highlights: [
+      "Lecture du français et de l'arabe",
+      "Photos de travers ou à l'envers remises droites",
+      "Type et date du document détectés automatiquement",
+      "Recherche en millisecondes, même avec une faute de frappe",
+    ],
+    tags: ["OCR", "Recherche intelligente", "Hors ligne"],
+    images: [
+      "/images/portfolio/archives-1.png",
+      "/images/portfolio/archives-2.png",
+      "/images/portfolio/archives-3.png",
+      "/images/portfolio/archives-4.png",
+      "/images/portfolio/archives-5.png",
+    ],
+    // Vidéo de démonstration réelle (fichiers dans /public/videos/)
+    videoSrc: "/videos/archives-demo.mp4",
+    poster: "/videos/archives-demo-poster.jpg",
+  },
+  {
     id: 2,
     title: "Jeff Computer",
     category: "Site e-commerce",

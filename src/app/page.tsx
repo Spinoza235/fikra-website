@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     ...defaultOpenGraph,
-    title: "Fikra Tech, agence d'intelligence artificielle au Tchad",
+    title: "ZakiCortex, agence d'intelligence artificielle au Tchad",
     description:
       "Chatbots WhatsApp, numérisation d'archives, analyse de données, sites et applications pour les organisations du Tchad.",
   },

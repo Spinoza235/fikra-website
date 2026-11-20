@@ -8,10 +8,10 @@ export const defaultOpenGraph = {
   type: "website" as const,
   images: [
     {
-      // Idéalement une image 1200×630 (logo + phrase d'accroche) : /og-image.png
-      url: "/fikra-logo.png",
-      width: 512,
-      height: 512,
+      // Image de partage (WhatsApp, Facebook, LinkedIn) : logo + phrase d'accroche
+      url: "/og-image.png",
+      width: 1200,
+      height: 630,
       alt: `${site.name}, agence d'intelligence artificielle au Tchad`,
     },
   ],
@@ -24,8 +24,8 @@ export const organizationJsonLd = {
   name: site.name,
   description: site.description,
   url: site.url,
-  logo: `${site.url}/fikra-logo.png`,
-  image: `${site.url}/fikra-logo.png`,
+  logo: `${site.url}/zakicortex-logo-512.png`,
+  image: `${site.url}/og-image.png`,
   email: site.email,
   telephone: site.phoneDisplay.replace(/\s/g, ""),
   address: {

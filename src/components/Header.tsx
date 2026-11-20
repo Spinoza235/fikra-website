@@ -61,10 +61,10 @@ export default function Header() {
         }}
       >
         <div className="px-6 py-4 flex items-center justify-between text-white">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/fikra-logo.png" alt="Fikra Tech" width={32} height={32} className="h-8 w-auto" priority />
-            <span className="text-xl font-bold">
-              Fikra<span className="text-primary">Tech</span>
+          <Link href="/" className="flex items-center gap-2.5" aria-label="ZakiCortex, accueil">
+            <Image src="/zakicortex-logo.png" alt="" width={36} height={36} className="h-9 w-9" priority />
+            <span className="text-xl font-bold tracking-tight" dir="ltr">
+              Zaki<span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">Cortex</span>
             </span>
           </Link>
 

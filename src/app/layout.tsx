@@ -28,14 +28,14 @@ const arabic = Noto_Sans_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Fikra Tech | Agence d'intelligence artificielle au Tchad",
-    template: "%s | Fikra Tech",
+    default: "ZakiCortex | Agence d'intelligence artificielle au Tchad",
+    template: "%s | ZakiCortex",
   },
   description: site.description,
   alternates: { canonical: "/" },
   icons: {
-    icon: "/fikra-favicon-32.png",
-    apple: "/fikra-apple-touch-180.png",
+    icon: "/zakicortex-favicon-32.png",
+    apple: "/zakicortex-apple-touch-180.png",
   },
   openGraph: defaultOpenGraph,
 };

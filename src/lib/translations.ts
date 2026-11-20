@@ -19,7 +19,7 @@ const fr = {
   },
   common: {
     whatsapp: "Écrire sur WhatsApp",
-    waDefault: "Bonjour, je souhaite discuter d'un projet avec Fikra Tech.",
+    waDefault: "Bonjour, je souhaite discuter d'un projet avec ZakiCortex.",
     seeDetail: "Voir le détail",
     forWho: "Pour qui : ",
     city: "N'Djamena",
@@ -87,15 +87,19 @@ const fr = {
     shop: "Boutique Informatique",
     status: "Assistant automatique · en ligne",
     typing: "écrit…",
+    business: "Compte professionnel",
+    today: "Aujourd'hui",
+    encrypted: "Les messages et les appels sont chiffrés de bout en bout.",
+    placeholder: "Message",
     caption: "Exemple : un assistant qui répond à 22 h, en français et en arabe.",
     messages: [
       { from: "client", text: "Bonsoir, vous avez encore le HP EliteBook ?", time: "22:14", rtl: false },
-      { from: "bot", text: "Bonsoir ! Oui, il en reste 3 à 285 000 FCFA. Je vous en réserve un pour demain ?", time: "22:14", rtl: false },
+      { from: "bot", text: "Bonsoir ! Oui, il en reste 3 à 285 000 FCFA. Je vous en réserve un pour demain ?", time: "22:14", rtl: false, buttons: ["Oui, réserver", "Voir d'autres modèles"] },
       { from: "client", text: "Oui, je passe à 10 h.", time: "22:15", rtl: false },
       { from: "bot", text: "C'est noté ✅ Réservation au nom de Mahamat, demain à 10 h. À demain !", time: "22:15", rtl: false },
       { from: "client", text: "السلام عليكم، عندكم شاحن؟", time: "22:31", rtl: true },
       { from: "bot", text: "وعليكم السلام، مرحبا بيك! أيوه، عندنا.", time: "22:31", rtl: true },
-    ] as { from: "client" | "bot"; text: string; time: string; rtl: boolean }[],
+    ] as { from: "client" | "bot"; text: string; time: string; rtl: boolean; buttons?: string[] }[],
   },
   pillars: [
     {
@@ -229,11 +233,11 @@ const fr = {
       "Nous voulons que les entreprises et institutions du Tchad profitent de l'intelligence artificielle, avec des outils conçus pour elles, ici.",
     storyTitle: "D'une idée à une agence IA",
     story: [
-      "Fikra Tech est née de la rencontre de trois jeunes Tchadiens formés à l'intelligence artificielle. Nous avons d'abord créé des sites et des logiciels pour des entreprises locales.",
+      "ZakiCortex est née de la rencontre de trois jeunes Tchadiens formés à l'intelligence artificielle. Nous avons d'abord créé des sites et des logiciels pour des entreprises locales.",
       "Ces projets nous ont convaincus d'une chose : l'IA peut transformer le quotidien des organisations tchadiennes, à condition d'être pensée pour leur réalité. C'est devenu notre spécialité.",
     ],
-    fikraTitle: "Fikra = « idée »",
-    fikraText: "Notre métier : transformer une idée en une solution qui fonctionne vraiment.",
+    nameTitle: "Zaki = « intelligent », Cortex = « le cerveau qui pense »",
+    nameText: "Notre nom réunit l'arabe et la science : une intelligence au service de vos idées, pensée pour le Tchad.",
     stepLabel: "Étape",
     journey: [
       { title: "Une idée", text: "Trois étudiants tchadiens en intelligence artificielle, convaincus que leur pays mérite des outils pensés pour lui." },
@@ -246,7 +250,7 @@ const fr = {
     // ✏️ Noms, rôles et textes des fondateurs (dans les deux langues)
     team: [
       {
-        name: "DINGAMMADJI Espérance",
+        name: "DINGAMMADJI ESPERANCE",
         role: "Cofondateur et directeur général, stratégie et conseil IA",
         bio: "Il accompagne les organisations de l'audit à la décision : il analyse vos processus, repère où l'IA crée de la valeur et pilote les projets jusqu'aux résultats. Il conçoit aussi les assistants intelligents qui répondent à partir de vos documents.",
         skills: ["Audit et conseil IA", "Assistants intelligents", "Pilotage de projets"],
@@ -280,7 +284,7 @@ const fr = {
     titleHighlight: "utilisés chaque jour",
     intro:
       "Logiciels avec IA, sites e-commerce et sites institutionnels : voici ce que nous avons construit pour nos clients.",
-    countChip: "projets en ligne ou en service",
+    countChip: "projets réalisés",
     chips: ["IA intégrée", "Pensés pour le Tchad"],
     featured: "Projet phare",
     seeCaptures: "Voir les captures",
@@ -332,7 +336,7 @@ const fr = {
     emailLink: "Vous préférez l'email ? Envoyez-nous un message",
     question: "De quoi avez-vous besoin ?",
     groupLabel: "Choisir un besoin",
-    greeting: "Bonjour Fikra Tech, ",
+    greeting: "Bonjour ZakiCortex, ",
     needs: [
       { label: "Chatbot WhatsApp", text: "je veux un assistant WhatsApp qui répond à mes clients" },
       { label: "Numérisation", text: "je veux numériser les archives de mon organisation" },
@@ -349,18 +353,23 @@ const fr = {
     agency: "L'agence",
     contact: "Contact",
     rights: "Tous droits réservés.",
+    talkTitle: "Un projet ? Écrivez-nous sur WhatsApp",
+    talkText: "Réponse rapide, en français ou en arabe. Le premier échange est gratuit.",
+    orEmail: "ou par email",
+    madeIn: "Conçu et développé à N'Djamena, Tchad.",
+    backToTop: "Revenir en haut de la page",
   },
   chatbot: {
-    title: "Assistant Fikra Tech",
+    title: "Assistant ZakiCortex",
     subtitle: "Réponses instantanées",
     greeting:
-      "Bonjour 👋 Je suis l'assistant Fikra Tech. Choisissez une question, ou écrivez directement à l'équipe sur WhatsApp.",
+      "Bonjour 👋 Je suis l'assistant ZakiCortex. Choisissez une question, ou écrivez directement à l'équipe sur WhatsApp.",
     whatsapp: "Écrire à l'équipe sur WhatsApp",
     open: "Ouvrir l'assistant",
     close: "Fermer l'assistant",
     faq: [
       {
-        question: "Que fait Fikra Tech ?",
+        question: "Que fait ZakiCortex ?",
         answer:
           "Nous sommes une agence d'intelligence artificielle à N'Djamena. Nous créons des chatbots WhatsApp, numérisons des archives, analysons des données, et réalisons aussi des sites web, des applications et des formations à l'IA.",
       },
@@ -408,7 +417,7 @@ const ar: Dict = {
   },
   common: {
     whatsapp: "راسلنا على واتساب",
-    waDefault: "مرحبًا، أودّ مناقشة مشروع مع Fikra Tech.",
+    waDefault: "مرحبًا، أودّ مناقشة مشروع مع ZakiCortex.",
     seeDetail: "عرض التفاصيل",
     forWho: "لمن: ",
     city: "انجامينا",
@@ -476,10 +485,14 @@ const ar: Dict = {
     shop: "متجر المعلوماتية",
     status: "مساعد آلي · متصل",
     typing: "يكتب…",
+    business: "حساب تجاري",
+    today: "اليوم",
+    encrypted: "الرسائل والمكالمات مشفّرة تمامًا بين الطرفين.",
+    placeholder: "رسالة",
     caption: "مثال: مساعد يردّ في العاشرة ليلًا، بالعربية والفرنسية.",
     messages: [
       { from: "client", text: "مساء الخير، هل ما زال لديكم حاسوب HP EliteBook؟", time: "22:14", rtl: true },
-      { from: "bot", text: "مساء النور! نعم، بقيت 3 أجهزة بسعر 285 000 فرنك. هل أحجز لك واحدًا لغدٍ؟", time: "22:14", rtl: true },
+      { from: "bot", text: "مساء النور! نعم، بقيت 3 أجهزة بسعر 285 000 فرنك. هل أحجز لك واحدًا لغدٍ؟", time: "22:14", rtl: true, buttons: ["نعم، احجز", "عرض موديلات أخرى"] },
       { from: "client", text: "نعم، سأمرّ الساعة العاشرة.", time: "22:15", rtl: true },
       { from: "bot", text: "تم ✅ الحجز باسم محمد، غدًا الساعة العاشرة. إلى اللقاء!", time: "22:15", rtl: true },
       { from: "client", text: "Bonjour, vous avez un chargeur ?", time: "22:31", rtl: false },
@@ -612,11 +625,11 @@ const ar: Dict = {
     intro: "نريد أن تستفيد الشركات والمؤسسات في تشاد من الذكاء الاصطناعي، بأدوات مصمَّمة لها، هنا.",
     storyTitle: "من فكرة إلى وكالة ذكاء اصطناعي",
     story: [
-      "وُلدت Fikra Tech من لقاء ثلاثة شباب تشاديين درسوا الذكاء الاصطناعي. بدأنا بإنشاء مواقع وبرامج لشركات محلية.",
+      "وُلدت ZakiCortex من لقاء ثلاثة شباب تشاديين درسوا الذكاء الاصطناعي. بدأنا بإنشاء مواقع وبرامج لشركات محلية.",
       "أقنعتنا هذه المشاريع بأمر واحد: يمكن للذكاء الاصطناعي أن يغيّر الحياة اليومية للمؤسسات التشادية، بشرط أن يُصمَّم لواقعها. وأصبح ذلك تخصصنا.",
     ],
-    fikraTitle: "Fikra تعني « فكرة »",
-    fikraText: "مهنتنا: تحويل فكرة إلى حل يعمل فعلًا.",
+    nameTitle: "Zaki تعني « ذكي »، وCortex هي « الدماغ الذي يفكّر »",
+    nameText: "اسمنا يجمع بين العربية والعلم: ذكاء في خدمة أفكاركم، مصمَّم لتشاد.",
     stepLabel: "المرحلة",
     journey: [
       { title: "فكرة", text: "ثلاثة طلاب تشاديين في الذكاء الاصطناعي، مقتنعون بأن بلدهم يستحق أدوات مصمَّمة له." },
@@ -627,7 +640,7 @@ const ar: Dict = {
     teamIntro: "ثلاثة ملفات متكاملة وطموح واحد: أن تصبح تشاد فاعلًا في مجال الذكاء الاصطناعي.",
     team: [
       {
-        name: "DINGAMMADJI Espérance",
+        name: "DINGAMMADJI ESPERANCE",
         role: "شريك مؤسس ومدير عام، الاستراتيجية واستشارات الذكاء الاصطناعي",
         bio: "يرافق المؤسسات من التدقيق إلى القرار: يحلّل عملياتكم، ويحدّد أين يخلق الذكاء الاصطناعي قيمة، ويقود المشاريع حتى تحقيق النتائج. كما يصمّم المساعدات الذكية التي تجيب انطلاقًا من وثائقكم.",
         skills: ["تدقيق واستشارات الذكاء الاصطناعي", "المساعدات الذكية", "قيادة المشاريع"],
@@ -660,7 +673,7 @@ const ar: Dict = {
     titleStart: "مشاريع مُسلَّمة،",
     titleHighlight: "تُستخدم كل يوم",
     intro: "برامج بالذكاء الاصطناعي، متاجر إلكترونية ومواقع مؤسساتية: هذا ما أنجزناه لعملائنا.",
-    countChip: "مشاريع منشورة أو قيد الاستخدام",
+    countChip: "مشاريع منجزة",
     chips: ["ذكاء اصطناعي مدمج", "مصمَّمة لتشاد"],
     featured: "مشروع رئيسي",
     seeCaptures: "عرض الصور",
@@ -711,7 +724,7 @@ const ar: Dict = {
     emailLink: "تفضّلون البريد الإلكتروني؟ أرسلوا لنا رسالة",
     question: "ما الذي تحتاجونه؟",
     groupLabel: "اختيار الاحتياج",
-    greeting: "مرحبًا Fikra Tech، ",
+    greeting: "مرحبًا ZakiCortex، ",
     needs: [
       { label: "روبوت واتساب", text: "أريد مساعدًا على واتساب يردّ على عملائي" },
       { label: "الرقمنة", text: "أريد رقمنة أرشيف مؤسستي" },
@@ -728,17 +741,22 @@ const ar: Dict = {
     agency: "الوكالة",
     contact: "اتصل بنا",
     rights: "جميع الحقوق محفوظة.",
+    talkTitle: "لديكم مشروع؟ راسلونا على واتساب",
+    talkText: "ردّ سريع بالعربية أو بالفرنسية. أول نقاش مجاني.",
+    orEmail: "أو عبر البريد الإلكتروني",
+    madeIn: "صُمِّم وطُوِّر في انجامينا، تشاد.",
+    backToTop: "العودة إلى أعلى الصفحة",
   },
   chatbot: {
-    title: "مساعد Fikra Tech",
+    title: "مساعد ZakiCortex",
     subtitle: "ردود فورية",
-    greeting: "مرحبًا 👋 أنا مساعد Fikra Tech. اختاروا سؤالًا، أو راسلوا الفريق مباشرة على واتساب.",
+    greeting: "مرحبًا 👋 أنا مساعد ZakiCortex. اختاروا سؤالًا، أو راسلوا الفريق مباشرة على واتساب.",
     whatsapp: "راسل الفريق على واتساب",
     open: "فتح المساعد",
     close: "إغلاق المساعد",
     faq: [
       {
-        question: "ماذا تقدّم Fikra Tech؟",
+        question: "ماذا تقدّم ZakiCortex؟",
         answer:
           "نحن وكالة ذكاء اصطناعي في انجامينا. ننشئ روبوتات محادثة على واتساب، ونرقمن الأرشيف، ونحلّل البيانات، وننجز أيضًا مواقع وتطبيقات وتدريبات في الذكاء الاصطناعي.",
       },

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services" },
   openGraph: {
     ...defaultOpenGraph,
-    title: "Nos services, Fikra Tech",
+    title: "Nos services, ZakiCortex",
     description:
       "Automatisation intelligente, solutions IA sur mesure, sites et applications, formation à l'IA.",
   },
