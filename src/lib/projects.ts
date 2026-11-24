@@ -118,6 +118,44 @@ export const projects: Project[] = [
     poster: "/videos/archives-demo-poster.jpg",
   },
   {
+    id: 5,
+    title: "Assistant IA interne sécurisé",
+    category: "IA sur vos documents internes",
+    shortDescription:
+      "Les employés posent leurs questions avec leurs propres mots. L'assistant répond à partir des documents internes de l'institution, en citant le document et la page. Tout reste sur l'ordinateur de l'institution : rien ne part sur Internet.",
+    fullDescription:
+      "Assistant IA interne sécurisé donne au personnel une réponse immédiate sur les procédures, les règlements et les tarifs de l'institution, sans fouiller dans des dizaines de PDF.\n\nL'accès est protégé par mot de passe. L'employé pose sa question en langage courant ; en quelques secondes, l'assistant répond à partir des documents internes indexés et cite sa source : le nom du document et la page exacte. Un clic ouvre la page du PDF avec le passage surligné, pour vérifier soi-même.\n\nSi l'information n'existe pas dans les documents, l'assistant le dit au lieu d'inventer une réponse. Le modèle d'IA tourne en local : aucune donnée ne quitte les bureaux.\n\nPensé pour les banques, les institutions de microfinance, les administrations et toute organisation qui gère des documents confidentiels.",
+    ar: {
+      category: "ذكاء اصطناعي على وثائقكم الداخلية",
+      shortDescription:
+        "يطرح الموظفون أسئلتهم بكلماتهم الخاصة، فيجيب المساعد انطلاقًا من الوثائق الداخلية للمؤسسة مع ذكر الوثيقة والصفحة. كل شيء يبقى على حاسوب المؤسسة: لا شيء يُرسَل إلى الإنترنت.",
+      highlights: [
+        "إجابات مأخوذة من وثائقكم فقط، مع المصدر والصفحة",
+        "المقطع المطلوب مظلَّل في ملف PDF بنقرة واحدة",
+        "يقول بوضوح عندما لا توجد المعلومة",
+        "يعمل محليًا 100٪ ودخوله محمي بكلمة مرور",
+      ],
+      tags: ["ذكاء اصطناعي توليدي", "بحث في الوثائق", "محلي 100٪"],
+    },
+    highlights: [
+      "Réponses tirées uniquement de vos documents, avec la source et la page",
+      "Le passage exact surligné dans le PDF, en un clic",
+      "Dit clairement quand l'information n'existe pas",
+      "100 % local, accès protégé par mot de passe",
+    ],
+    tags: ["IA générative", "Recherche documentaire", "100 % local"],
+    images: [
+      "/images/portfolio/assistant-1.jpg",
+      "/images/portfolio/assistant-2.jpg",
+      "/images/portfolio/assistant-3.jpg",
+      "/images/portfolio/assistant-4.jpg",
+      "/images/portfolio/assistant-5.jpg",
+    ],
+    // Vidéo de démonstration réelle (fichiers dans /public/videos/)
+    videoSrc: "/videos/assistant-ia-demo.mp4",
+    poster: "/videos/assistant-ia-demo-poster.jpg",
+  },
+  {
     id: 2,
     title: "Jeff Computer",
     category: "Site e-commerce",
